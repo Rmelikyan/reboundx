@@ -63,7 +63,7 @@
 #include <stdlib.h>
 #include "reboundx.h"
 
-static void rebx_calculate_yarko_dadt_force(struct rebx_extras* const rebx, struct reb_simulation* const sim, const double dadt_1km, const double star_i, struct reb_particle* const particles, const int N){
+static void rebx_calculate_yarko_dadt_force(struct rebx_extras* const rebx, struct reb_simulation* const sim, const double dadt_1km, const int star_i, struct reb_particle* const particles, const int N){
     const struct reb_particle star = particles[star_i];
     const double mu = sim->G*star.m;
     const double au2m = 149597870700;
@@ -75,7 +75,7 @@ static void rebx_calculate_yarko_dadt_force(struct rebx_extras* const rebx, stru
         const double* obliquity = rebx_get_param(rebx, particles[i].ap, "obliquity");
         if(obliquity == NULL) continue; // only particles with obliquity set feel yarko drift
 
-        const double D = 2 * particles[i].r * 1e-3 // Particle Diameter in km
+        const double D = 2 * particles[i].r * 1e-3; // Particle Diameter in km
         
         const struct reb_particle p = particles[i];
         const double dx = p.x - star.x; 
@@ -91,7 +91,7 @@ static void rebx_calculate_yarko_dadt_force(struct rebx_extras* const rebx, stru
         const double energy     = 0.5*v2 - mu/dr;
         const double a          = -0.5*mu/energy;
         const double auPmyr2mPs = au2m/sec2year/1e6; // conversion factor for au/Myr to m/s
-        const double dadt       = dadt_1km/D*cos(obliquity); // dadt for object of diameter D and obliquity
+        const double dadt       = dadt_1km/D*cos(*obliquity); // dadt for object of diameter D and obliquity
         const double k          = 0.5*dadt*auPmyr2mPs*mu/(a*a); 
 
         particles[i].ax += k * dvx/v2;

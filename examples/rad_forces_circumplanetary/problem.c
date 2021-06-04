@@ -49,7 +49,7 @@ int main(int argc, char* argv[]){
     struct rebx_extras* rebx = rebx_attach(sim); 
     struct rebx_force* rad = rebx_load_force(rebx, "radiation_forces");
     double c = 3.e8;                    // speed of light in SI units 
-    rebx_set_param_double(rebx, &rad->ap, "c", c);
+    // rebx_set_param_double(rebx, &rad->ap, "c", c);
     
     // Will assume particles[0] is the radiation source by default. You can also add a flag to a particle explicitly
     rebx_set_param_int(rebx, &sim->particles[0].ap, "radiation_source", 1); 

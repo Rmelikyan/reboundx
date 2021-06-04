@@ -67,13 +67,14 @@ static void rebx_calculate_yarko_dadt_force(struct rebx_extras* const rebx, stru
     const struct reb_particle star = particles[star_i];
     const double mu = sim->G*star.m;
     const double au2m = 149597870700;
-    double sec2year = 31536000.0;
+    const double sec2year = 31536000.0;
 
 
     for (int i=0;i<N;i++){
         
         const double* obliquity = rebx_get_param(rebx, particles[i].ap, "obliquity");
         if(obliquity == NULL) continue; // only particles with obliquity set feel yarko drift
+        printf('%f\n',obliquity);
 
         const double D = 2 * particles[i].r * 1e-3; // Particle Diameter in km
         
@@ -103,6 +104,7 @@ static void rebx_calculate_yarko_dadt_force(struct rebx_extras* const rebx, stru
 void rebx_yarko_dadt_force(struct reb_simulation* const sim, struct rebx_force* const radiation_forces, struct reb_particle* const particles, const int N){
     struct rebx_extras* const rebx = sim->extras;
     double* dadt_1km = rebx_get_param(rebx, radiation_forces->ap, "dadt_1km");
+    printf('%f\n',dadt_1km);
     if (dadt_1km == NULL){
         reb_error(sim, "Need to set a reference dadt drift for a 1km diameter object.  See examples in documentation.\n");
     }

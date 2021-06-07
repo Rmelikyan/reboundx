@@ -36,9 +36,9 @@ int main(int argc, char* argv[]){
     
     // Add REBOUNDx
     struct rebx_extras* rebx = rebx_attach(sim); 
-    struct rebx_force* rad = rebx_load_force(rebx, "radiation_forces");
+    struct rebx_force* rad = rebx_load_force(rebx, "yarko_dadt_force");
     double dadt_1km = 2e-4;             // Reference drift rate in au/Myr for 1km diameter body
-    // rebx_set_param_double(rebx, &rad->ap, "dadt_1km", dadt_1km);
+    rebx_set_param_double(rebx, &rad->ap, "dadt_1km", dadt_1km);
     
     // Will assume particles[0] is the primary body by default. You can also add a flag to a particle explicitly
     rebx_set_param_int(rebx, &sim->particles[0].ap, "primary", 1); 

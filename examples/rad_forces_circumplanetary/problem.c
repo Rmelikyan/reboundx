@@ -26,7 +26,7 @@ int main(int argc, char* argv[]){
     sim->dt             = 1e4;          // Initial timestep in sec
     sim->N_active       = 2;            // Only the sun and the planet affect other particles gravitationally
     sim->heartbeat      = heartbeat;
-    sim->usleep     = 1000;             // Slow down integration (for visualization only)
+    // sim->usleep     = 1000;             // Slow down integration (for visualization only)
     
     // sun
     struct reb_particle sun = {0};
@@ -49,7 +49,7 @@ int main(int argc, char* argv[]){
     struct rebx_extras* rebx = rebx_attach(sim); 
     struct rebx_force* rad = rebx_load_force(rebx, "radiation_forces");
     double c = 3.e8;                    // speed of light in SI units 
-    // rebx_set_param_double(rebx, &rad->ap, "c", c);
+    rebx_set_param_double(rebx, &rad->ap, "c", c);
     
     // Will assume particles[0] is the radiation source by default. You can also add a flag to a particle explicitly
     rebx_set_param_int(rebx, &sim->particles[0].ap, "radiation_source", 1); 
